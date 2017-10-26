@@ -1,0 +1,112 @@
+<html><head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <script src="start_files/ical.js"></script>
+        <script src="start_files/moment.js"></script>
+        <script src="start_files/jquery.js"></script>
+        <script src="start_files/search.js"></script>
+        <script src="start_files/jquery-autocomplete.js"></script>
+        <script src="start_files/jquery.fullPage.js"></script>
+        <script src="start_files/cal_init.js"></script>
+        <script>
+            swapped = false;
+            function clock() {
+                var t = moment(),
+                  a = t.minutes() * 6,
+                  o = t.hours() % 12 / 12 * 360 + (a / 12);
+                $(".hour").css("transform", "rotate(" + o + "deg)");
+                $(".minute").css("transform", "rotate(" + a + "deg)");
+            }
+
+            function digiclock() {
+                var t = moment();
+                $(".digiclock-text").html(('0' + t.hours()).slice(-2)+":"+('0' + t.minutes()).slice(-2));
+            }
+
+            function refreshClock() {
+                if(swapped) digiclock(), setTimeout(refreshClock, 1000);
+                else clock(), setTimeout(refreshClock, 1000);
+            }
+            function swapClock() {
+                if(swapped) {
+                    $('.digiclock-text').hide();
+                    $('.clock').show();
+                }
+                else {
+                    $('.clock').hide();
+                    $('.digiclock-text').show();
+                }
+                swapped = !swapped;
+            }
+
+            $(document).ready(function() {$('#fullpage').fullpage({
+              css3: true,
+              slidesNavigation: true,
+              controlArrows: false,
+              normalScrollElements: '.slide'
+            });});
+
+            var supportsWheel = false;
+
+            /* The function that will run when the event are triggered. */
+            function DoSomething (e) {
+              /* Check whether the wheel event is supported. */
+              if (e.type == "wheel") supportsWheel = true;
+              else if (supportsWheel) return;
+
+              /* Determine the direction of the scroll (< 0 → up, > 0 → down). */
+              var delta = ((e.deltaY || -e.wheelDelta || e.detail) >> 10) || 1;
+
+              if(delta == 1){
+                $.fn.fullpage.moveSlideRight();
+              } else {
+                $.fn.fullpage.moveSlideLeft();
+              }
+
+              console.log(delta);
+            }
+
+            /* Add the event listeners for each event. */
+            document.addEventListener('wheel', DoSomething);
+            document.addEventListener('mousewheel', DoSomething);
+            document.addEventListener('DOMMouseScroll', DoSomething);
+
+            refreshClock();
+        </script>
+        <link rel="stylesheet" type="text/css" href="start_files/styles.css">
+        <link rel="stylesheet" type="text/css" href="start_files/jquery.fullPage.css">
+        <link href="start_files/css.css" rel="stylesheet">
+    </head>
+    <body>
+      <div id="fullpage">
+        <div class="section">
+        <div class="slide">
+            <div class="clock-container">
+              <div class="clock">
+                  <div class="hour" style="transform: rotate(64.5deg);"></div>
+                  <div class="minute" style="transform: rotate(54deg);"></div>
+              </div>
+              <div class="digiclock">
+                  <p class="digiclock-text">00:00</p>
+              </div>
+            </div>
+
+            <div class="search">
+                <input class="searchbox" autocomplete="off">
+            </div>
+
+            <div class="navbar">
+                <a href="http://www.peda.net/"><img class="icon" src="start_files/Peda.png"></a>
+                <a href="http://www.mayk.fi/"><img class="icon" src="start_files/Mayk.png"></a>
+                <a href="http://wilma.edu.hel.fi/"><img class="icon" src="start_files/Wilma.png"></a>
+            </div>
+        </div>
+        <div class="slide">
+          <div class="table">
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+<div class="autocomplete-suggestions" style="position: absolute; display: none; max-height: 300px; z-index: 9999;"></div></body></html>
