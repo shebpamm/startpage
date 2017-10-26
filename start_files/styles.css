@@ -6,23 +6,8 @@
 }
 
 .table {
-
-}
-
-.ruoka {
-  text-align: center;
-
-  font-family: 'Varela Round', sans-serif;
-  font-weight: normal;
-  font-style: normal;
-  border: 0;
-  font-size: 50px;
-  padding: 3px;
-  color: #FFFFFF;
-}
-
-.row {
-    text-align: center;
+    text-align: left;
+    display: inline-block;
 
     font-family: 'Varela Round', sans-serif;
     font-weight: normal;
@@ -31,6 +16,32 @@
     font-size: 50px;
     padding: 3px;
     color: #FFFFFF;
+}
+
+.current {
+    color: #3399FF !important;
+}
+
+.ruoka {
+  text-align: left;
+  display: inline-block;
+
+  font-family: 'Varela Round', sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  border: 0;
+  font-size: 50px;
+  padding: 3px;
+  color: #FFFFFF;
+
+}
+
+.center {
+    text-align: center;
+}
+
+.row {
+
 }
 
 body {

@@ -5,6 +5,10 @@ $(document).ready(function() {
     days = $('.ruoka-header-ruoka', elems);
     weekday = moment().weekday();
     food = days.eq(weekday-1).html();
-    $('.ruoka').append('<div class="ruoka-row">' + food + '</div>');
+    for (var i = 0; i < 5; i++) {
+        if(i+1 == weekday) $('.ruoka').append('<div class="ruoka-row current">' + days.eq(i).html() + '</div>');
+        else $('.ruoka').append('<div class="ruoka-row">' + days.eq(i).html() + '</div>');
+    }
+
   });
 });

@@ -22,7 +22,7 @@ function filterList(props) {
     for (var i = 0; i < hours.length; i++) {
         st = moment(hours[i].s, 'hhmm')
         et = moment(hours[i].e, 'hhmm')
-        if(st < moment() && moment() < et) $('.row').eq(i).css("color", "#3399FF")
+        if(st < moment() && moment() < et) $('.row').eq(i).addClass("current");
     }
 
 }
