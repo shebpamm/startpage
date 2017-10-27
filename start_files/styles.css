@@ -9,6 +9,18 @@
 
 }
 
+.ruoka {
+  text-align: center;
+
+  font-family: 'Varela Round', sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  border: 0;
+  font-size: 50px;
+  padding: 3px;
+  color: #FFFFFF;
+}
+
 .row {
     text-align: center;
 

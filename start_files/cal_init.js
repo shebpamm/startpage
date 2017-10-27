@@ -42,7 +42,6 @@ $(document).ready(function() {
            rrule: vevent.getFirstPropertyValue("rrule")
            };
        });
-       console.log(props);
        filterList(props);
 
     });
