@@ -7,10 +7,13 @@
         <script src="start_files/jquery-autocomplete.js"></script>
         <script src="start_files/jquery.fullPage.js"></script>
         <script src="start_files/cal_init.js"></script>
+        <script src="start_files/food_init.js"></script>
         <script src="start_files/underscore.js"></script>
-        <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
         <script>
+            pos = 0;
             swapped = false;
+            enabled = true;
             function clock() {
                 var t = moment(),
                   a = t.minutes() * 6,
@@ -51,26 +54,37 @@
 
             /* The function that will run when the event are triggered. */
             function DoSomething (e) {
+
+              if(!enabled) return;
+
+              enabled = false;
+              setTimeout(function(){
+                enabled = true;
+              }, 1000)
+
               /* Check whether the wheel event is supported. */
+              console.log(e)
               if (e.type == "wheel") supportsWheel = true;
               else if (supportsWheel) return;
 
               /* Determine the direction of the scroll (< 0 → up, > 0 → down). */
               var delta = ((e.deltaY || -e.wheelDelta || e.detail) >> 10) || 1;
 
-              if(delta == 1){
+              if(delta == 1  && pos < 1){
                 $.fn.fullpage.moveSlideRight();
-              } else {
+                pos += 1;
+                console.log(pos)
+              } else if(delta == -1 && pos > -1) {
                 $.fn.fullpage.moveSlideLeft();
+                pos -= 1;
+                console.log(pos)
               }
-
-              console.log(delta);
             }
 
             /* Add the event listeners for each event. */
-            document.addEventListener('wheel', DoSomething);
-            document.addEventListener('mousewheel', DoSomething);
-            document.addEventListener('DOMMouseScroll', DoSomething);
+              document.addEventListener('wheel', DoSomething);
+          //  document.addEventListener('mousewheel', DoSomething);
+          //  document.addEventListener('DOMMouseScroll', DoSomething);
 
             refreshClock();
         </script>
@@ -80,8 +94,12 @@
     </head>
     <body>
       <div id="fullpage">
-        <div class="section">
+        <div class="section active">
         <div class="slide">
+          <div class="ruoka">
+          </div>
+        </div>
+        <div class="slide active">
             <div class="clock-container">
               <div class="clock">
                   <div class="hour" style="transform: rotate(64.5deg);"></div>
@@ -104,7 +122,6 @@
         </div>
         <div class="slide">
           <div class="table">
-
           </div>
         </div>
       </div>
